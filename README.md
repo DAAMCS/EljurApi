@@ -9,4 +9,4 @@
 `$ git clone https://github.com/DAAMCS/EljurApi.git`
 
 ## Документация по методам
-Всю информацию об используемых методах можете найти в <a href="https://github.com/DAAMCS/EljurApi/wiki/EljurApi-Documenation">соответсвующей документации</a>
+Всю информацию об используемых методах можете найти в <a href="https://github.com/DAAMCS/EljurApi/wiki/EljurApi-Methods-Docs">соответсвующей документации</a>
