@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 
-
 class Journal:
     def __init__(self, client) -> None:
         self._logger = client._logger
@@ -12,15 +11,15 @@ class Journal:
 
     def get_journal(self, week=0):
 
+        subdomain = self._client._subdomain
+        session = self._client._session
         journal_week = week
 
         self._logger.info(f'Getting Journal for week {journal_week}')
 
-        subdomain = self._client.subdomain
-
         url = f"https://{subdomain}.eljur.ru/journal-app/week.{week * -1}"
 
-        JournalPage = self._client.session.post(url=url)
+        JournalPage = session.post(url=url)
 
         soup = BeautifulSoup(JournalPage.text, 'lxml')
         info = {}
