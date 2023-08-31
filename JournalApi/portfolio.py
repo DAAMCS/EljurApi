@@ -56,5 +56,42 @@ class Portfolio:
         req = self._client._session.get(url)
 
         soup = BeautifulSoup(req.text, 'lxml')
+        
+        columns_dict = {
+            'I': None,
+            'II': None,
+            'III': None,
+            'IV': None,
+            'Year': None,
+            'Final': None
+        }
 
-        card = {}
+        quarters_columns = soup.find_all("div", class_="cells cells_marks")
+        year_column = soup.find("div", class_="cells red id_yearly cells_marks")
+        final_column = soup.find("div", class_="cells cells_marks cells_red_bg id_results")
+
+        for i, key in enumerate(columns_dict):
+            if i < len(quarters_columns):
+                columns_dict[key] = quarters_columns[i]
+            else:
+                break
+
+        columns_dict["Year"] = year_column
+        columns_dict["Final"] = final_column
+        
+        
+        for quarter, column in columns_dict.items():
+            column_dict = {}
+            
+            cells = column.find_all("div", class_="cell")
+
+            for cell in cells:
+                try:
+                    cell_mark = cell.find("div", class_="cell-data").contents[0]
+                    cell_name = cell.get("name")
+                    column_dict[cell_name] = cell_mark
+                except: 
+                    pass
+
+            columns_dict[quarter] = column_dict
+        return columns_dict
